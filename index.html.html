@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Landing Page</title>
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        color: white;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .overlay {
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(6px);
+        padding: 30px;
+        border-radius: 15px;
+        width: 320px;
+        text-align: center;
+        animation: pop 0.4s ease-out;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0.7); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    button {
+        padding: 15px;
+        width: 120px;
+        margin: 10px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .yes { background:#ff0077; color:white; }
+    .no { background:#ff6600; color:white; }
+
+    .content {
+        display: none;
+        width: 350px;
+        background:#1f1f1f;
+        padding:20px;
+        border-radius:15px;
+        animation: fade .5s;
+    }
+
+    @keyframes fade {
+        from {opacity:0;}
+        to {opacity:1;}
+    }
+
+    .comment-box {
+        background:#333;
+        padding:10px;
+        border-radius:10px;
+        margin-top:10px;
+        text-align:left;
+    }
+
+    .stats {
+        font-size: 14px;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+
+    /* Notifications */
+    .notify {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background:#ff0077;
+        padding:12px 18px;
+        border-radius:15px;
+        opacity: 0;
+        font-size:14px;
+        animation: slideIn 1s forwards;
+    }
+
+    @keyframes slideIn {
+        0% { opacity:0; transform:translateY(30px); }
+        100% { opacity:1; transform:translateY(0); }
+    }
+
+    /* Loading Bar */
+    .loading {
+        width: 100%;
+        height: 8px;
+        background:#444;
+        border-radius:10px;
+        overflow: hidden;
+        display:none;
+        margin-top:20px;
+    }
+
+    .loading div {
+        height:100%;
+        width:0%;
+        background:#ff0077;
+        transition: width 0.4s linear;
+    }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="verify">
+    <h2>Are You Over 18+?</h2>
+    <button class="yes" onclick="allow()">YES</button>
+    <button class="no" onclick="noClick()">NO</button>
+</div>
+
+<div class="content" id="mainContent">
+    <div class="stats" id="dynamicStats"></div>
+
+    <div class="comment-box" id="c1"></div>
+    <div class="comment-box" id="c2"></div>
+    <div class="comment-box" id="c3"></div>
+
+    <div class="loading" id="loadingBar">
+        <div id="progress"></div>
+    </div>
+</div>
+
+<script>
+const names = ["Ella", "Sophia", "Mia", "Bella", "Clara", "Olivia", "Anna", "Emma", "Nina", "Sara", "Lily", "Grace"];
+const comments = [
+    "sent you a like ❤️",
+    "viewed your profile 👀",
+    "wants to match with you 💌",
+    "added you to favorites ⭐",
+    "is typing a message… 💬"
+];
+
+function randomName() {
+    return names[Math.floor(Math.random() * names.length)];
+}
+
+function randomSentence() {
+    return comments[Math.floor(Math.random() * comments.length)];
+}
+
+function allow(){
+    document.getElementById("verify").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+
+    startNotifications();
+    generateRandomComments();
+    startLoadingBar();
+}function noClick() {
+    window.location.href ="http://karleykailee.aithne.xyz/f66e95790642668cb231df7047f7c7fd"}
+
+
+function generateRandomComments() {
+    document.getElementById("dynamicStats").innerHTML = 
+        `❤️ ${Math.floor(Math.random()*3000)} likes • 💬 ${Math.floor(Math.random()*500)} comments • 👀 ${Math.floor(Math.random()*900)}K views`;
+
+    document.getElementById("c1").innerHTML = `<b>${randomName()}</b><br>${randomSentence()}`;
+    document.getElementById("c2").innerHTML = `<b>${randomName()}</b><br>${randomSentence()}`;
+    document.getElementById("c3").innerHTML = `<b>${randomName()}</b><br>${randomSentence()}`;
+}
+
+function startNotifications(){
+    const notifArr = [
+        `${randomName()} liked your profile ❤️`,
+        `${randomName()} sent you a message 💬`,
+        `${randomName()} matched with you 🔥`,
+        `${randomName()} is near your area 📍`
+    ];
+
+    let i = 0;
+    function showNotif(){
+        if(i >= notifArr.length) return;
+
+        let div = document.createElement("div");
+        div.className = "notify";
+        div.innerHTML = notifArr[i];
+        document.body.appendChild(div);
+
+        setTimeout(()=>{ div.remove(); }, 3000);
+        i++;
+        setTimeout(showNotif, 1800);
+    }
+    showNotif();
+}
+
+function startLoadingBar(){
+    const bar = document.getElementById('loadingBar');
+    const progress = document.getElementById('progress');
+
+    bar.style.display = "block";
+    let width = 0;
+
+    const loading = setInterval(()=>{
+        width += Math.floor(Math.random()*20) + 10;
+        if(width > 100) width = 100;
+        progress.style.width = width + "%";
+
+        if(width >= 100){
+            clearInterval(loading);
+            setTimeout(()=>{ window.location.href = "http://jennaapril.aithne.xyz/671653025a79d4b85b3064d1a38065c1"; }, 1000);
+        }
+    }, 600);
+}
+</script>
+
+</body>
+</html>
